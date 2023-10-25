@@ -1,7 +1,7 @@
 {
     "headers": [
       {
-        "source": "/api/02202b8a-05c2-4efd-8e2e-a5951c439503", 
+        "source": "/api/02202b8a-05c2-4efd-8e2e-a5951c439503/checkout", 
         "headers": [
           {
             "key": "Access-Control-Allow-Origin",
