@@ -18,10 +18,10 @@ export async function POST(
   req: Request,
   { params }: { params: { storeId: string } }
 ) {
-  const { productIds } = await req.json();
+ const { address, phoneNumber, paymentMethod, productIds } = await req.json();
 
-  if (!productIds || productIds.length === 0) {
-    return new NextResponse("Product ids are required", { status: 400 });
+  if (!address || !phoneNumber || !paymentMethod || !productIds || productIds.length === 0) {
+    return new NextResponse("Incomplete or invalid data", { status: 400 });
   }
 
   const products = await prismadb.product.findMany({
@@ -33,21 +33,23 @@ export async function POST(
   });
 
 
-  const order = await prismadb.order.create({
-    data: {
-      storeId: params.storeId,
-      isPaid: false,
-      orderItems: {
-        create: productIds.map((productId: string) => ({
-          product: {
-            connect: {
-              id: productId
-            }
-          }
-        }))
-      }
-    }
-  });
+const order = await prismadb.order.create({
+      data: {
+        storeId: params.storeId,
+        address,
+        phone: phoneNumber,
+        isPaid: false,
+        orderItems: {
+          create: productIds.map((productId: string) => ({
+            product: {
+              connect: {
+                id: productId,
+              },
+            },
+          })),
+        },
+      },
+    });
 
 
 return NextResponse.json(
