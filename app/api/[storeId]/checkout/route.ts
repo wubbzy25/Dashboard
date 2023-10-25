@@ -1,7 +1,5 @@
-import Stripe from "stripe";
 import { NextResponse } from "next/server";
 
-import { stripe } from "@/lib/stripe";
 import prismadb from "@/lib/prismadb";
 
 const corsHeaders = {
@@ -51,7 +49,7 @@ const order = await prismadb.order.create({
       },
     });
 
-
+  redirectTo(`/checkout?success=true`);
 return NextResponse.json(
       { orderId: order.id, message: "Datos de pago guardados exitosamente" },
       {
