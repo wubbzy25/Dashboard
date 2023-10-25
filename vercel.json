@@ -1,0 +1,23 @@
+{
+    "headers": [
+      {
+        "source": "/api/02202b8a-05c2-4efd-8e2e-a5951c439503/api/checkout", 
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*" 
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET, POST, PUT, DELETE, OPTIONS"
+          },
+          {
+            "key": "Access-Control-Allow-Headers",
+            "value": "Content-Type, Authorization"
+          }
+        ]   
+        
+      }
+    ]
+  }
+  
