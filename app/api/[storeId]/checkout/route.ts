@@ -13,14 +13,14 @@ export async function OPTIONS() {
 
 export async function POST(req: Request,
   { params }: { params: { storeId: string } }) {
-  const { address, phoneNumber, paymentMethod, productIds } = await req.json();
+  const { productIds } = await req.json();
   
 
-  if (!address || !phoneNumber  || !productIds || productIds.length === 0) {
+  if ( productIds.length === 0) {
     return new NextResponse("Incomplete or invalid data", { status: 400 });
   }
 
-  const products = await prismadb.product.findMany({
+   const products = await prismadb.product.findMany({
     where: {
       id: {
         in: productIds
@@ -28,9 +28,8 @@ export async function POST(req: Request,
     }
   });
 
-  try {
     // Guarda los datos del formulario en tu base de datos
-const order = await prismadb.order.create({
+  const order = await prismadb.order.create({
     data: {
       storeId: params.storeId,
       isPaid: false,
@@ -52,8 +51,4 @@ const order = await prismadb.order.create({
         headers: corsHeaders,
       }
     );
-  } catch (error) {
-    console.error('Error al guardar datos de pago en la base de datos:', error);
-    return new NextResponse("Error al guardar datos en la base de datos", { status: 500 });
-  }
 }
