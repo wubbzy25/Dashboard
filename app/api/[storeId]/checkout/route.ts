@@ -3,7 +3,7 @@ import prismadb from "@/lib/prismadb";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
@@ -19,8 +19,6 @@ export async function POST(req: Request,
     return new NextResponse("Incomplete or invalid data", { status: 400 });
   }
 
-  const line_items = [];
-
   const products = await prismadb.product.findMany({
     where: {
       id: {
@@ -28,6 +26,8 @@ export async function POST(req: Request,
       }
     }
   });
+  
+  const line_items = [];
 
   products.forEach((product) => {
     line_items.push({
