@@ -18,6 +18,30 @@ export async function POST(req: Request) {
     return new NextResponse("Incomplete or invalid data", { status: 400 });
   }
 
+  const line_items = [];
+  
+  const products = await prismadb.product.findMany({
+    where: {
+      id: {
+        in: productIds
+      }
+    }
+  });
+
+  products.forEach((product) => {
+    line_items.push({
+      quantity: 1,
+      price_data: {
+        currency: 'COP',
+        product_data: {
+          name: product.name,
+        },
+        unit_amount: product.price.toNumber() * 100
+      }
+    });
+  });
+
+
   try {
     // Guarda los datos del formulario en tu base de datos
     const order = await prismadb.order.create({
