@@ -11,7 +11,8 @@ export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
 }
 
-export async function POST(req: Request) {
+export async function POST(req: Request,
+  { params }: { params: { storeId: string } }) {
   const { address, phoneNumber, paymentMethod, productIds } = await req.json();
 
   if (!address || !phoneNumber || !paymentMethod || !productIds || productIds.length === 0) {
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
   }
 
   const line_items = [];
-  
+
   const products = await prismadb.product.findMany({
     where: {
       id: {
@@ -46,6 +47,7 @@ export async function POST(req: Request) {
     // Guarda los datos del formulario en tu base de datos
     const order = await prismadb.order.create({
       data: {
+        storeId: params.storeId,
         address,
         phone: phoneNumber,
         isPaid: false,
