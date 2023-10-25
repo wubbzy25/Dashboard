@@ -23,8 +23,7 @@ export async function POST(req: Request) {
     const order = await prismadb.order.create({
       data: {
         address,
-        phoneNumber,
-        paymentMethod,
+        phone: phoneNumber,
         isPaid: false,
         orderItems: {
           create: productIds.map((productId) => ({
