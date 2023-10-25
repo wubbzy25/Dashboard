@@ -50,7 +50,10 @@ export async function POST(
   });
 
 
-  return NextResponse.json({ url: session.url }, {
-    headers: corsHeaders
-  });
+return NextResponse.json(
+      { orderId: order.id, message: "Datos de pago guardados exitosamente" },
+      {
+        headers: corsHeaders,
+      }
+    );
 };
