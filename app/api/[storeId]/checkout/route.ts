@@ -52,7 +52,7 @@ export async function POST(req: Request,
         phone: phoneNumber,
         isPaid: false,
         orderItems: {
-          create: productIds.map((productId) => ({
+          create: productIds.map((productId: string) => ({
             product: {
               connect: {
                 id: productId,
