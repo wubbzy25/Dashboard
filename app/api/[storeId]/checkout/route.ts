@@ -11,7 +11,7 @@ export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
 }
 
-export async function POST(req) {
+export async function POST(req: Request) {
   const { address, phoneNumber, paymentMethod, productIds } = await req.json();
 
   if (!address || !phoneNumber || !paymentMethod || !productIds || productIds.length === 0) {
