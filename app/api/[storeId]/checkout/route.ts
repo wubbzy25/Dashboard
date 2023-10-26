@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { useRouter } from 'next/router';
+import { redirectTo } from 'next/navigation';
 
 import prismadb from "@/lib/prismadb";
 
@@ -50,7 +50,7 @@ const order = await prismadb.order.create({
       },
     });
 
- useRouter().push(`/cart?success=1`);
+redirectTo(`/cart?success=1`);
 return NextResponse.json(
       { orderId: order.id, message: "Datos de pago guardados exitosamente" },
       {
