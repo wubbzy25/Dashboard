@@ -16,9 +16,9 @@ export async function POST(
   req: Request,
   { params }: { params: { storeId: string } }
 ) {
- const { address, phoneNumber, paymentMethod, productIds } = await req.json();
+ const { address, phoneNumber, productIds } = await req.json();
 
-  if (!address || !phoneNumber || !paymentMethod || !productIds || productIds.length === 0) {
+  if (!address || !phoneNumber || !productIds || productIds.length === 0) {
     return new NextResponse("Incomplete or invalid data", { status: 400 });
   }
 
