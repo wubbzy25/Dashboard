@@ -49,7 +49,7 @@ const order = await prismadb.order.create({
       },
     });
 
-  redirectTo(`/checkout?success=true`);
+  redirectTo(`${process.env.FRONTEND_STORE_URL}/cart?success=1`)
 return NextResponse.json(
       { orderId: order.id, message: "Datos de pago guardados exitosamente" },
       {
