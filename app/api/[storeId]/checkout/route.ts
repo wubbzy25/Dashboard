@@ -36,7 +36,7 @@ const order = await prismadb.order.create({
         storeId: params.storeId,
         address,
         phone: phoneNumber,
-        isPaid: false,
+        isPaid: true,
         orderItems: {
           create: productIds.map((productId: string) => ({
             product: {
